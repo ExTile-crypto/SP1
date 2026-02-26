@@ -3,14 +3,12 @@ import java.util.Scanner;
 public class gigSim {
 
     static void playGig() {
-        gigSimulation.gigXP();
-        gigSimulation.gigFans();
-        gigSimulation.gigEvent();
-        gigSimulation.gigMoney();
+        playerBandClass.band.checkFans();
+
         gigSimulation.gigResult();
 
         playerBandClass.band.checkFameLvl();
-        playerBandClass.band.checkFans();
+
 
         System.out.println("Type 1 to go back to main menu");
         Scanner scanner = new Scanner(System.in);
@@ -29,7 +27,7 @@ public class gigSim {
 
         static int venueCap() {
             return playerBandClass.band.getMaxFans() / 2;
-        }
+        } //Venue cap skallerer med spillerens maxFans som skalerer med spillerens Famelvl.
 
         static int attendance() {
             if (playerBandClass.band.getFans() * playerBandClass.band.getFameLvl()>=venueCap()){
@@ -49,7 +47,7 @@ public class gigSim {
             if (cap <= 0) return 0.0;
             return ((double) attendance() / cap) * 100.0;
         }
-
+// Forskellige metoder til at opdatere spillerens band ud fra gig simulation.
         public static double gigXP() {
             int exp = attendance();
             playerBandClass.band.setExp(exp);
@@ -60,12 +58,12 @@ public class gigSim {
             int fans;
             double perc = gigAttendancePerc();
             if (perc >= 80) {
-                playerBandClass.band.addFans(200);
-                fans = 200;
+                playerBandClass.band.addFans(300);
+                fans = 300;
                 return fans;
             } else {
-                playerBandClass.band.addFans(50);
-                fans = 50;
+                playerBandClass.band.addFans(120);
+                fans = 120;
                 return fans;
             }
         }
@@ -90,8 +88,9 @@ public class gigSim {
             }
         }
 
-        static int gigSongStreams() {
-            int total = 0;
+        static int gigSongStreams() { //Sange i repertoire får et hvis antal streams ud fra 'gigscore'
+            int total = 0;            //Dog er matematikken ikke blevet implementeret med nogen progression i mente
+                                        // så dette er mostly et proof of concept.
             for (int i = 0; i < Arrays.songs.size(); i++) {
                 int streams = (int) (gigScore() * playerBandClass.band.getFameLvl() * attendance());
                 total += streams;

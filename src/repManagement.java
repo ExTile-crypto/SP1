@@ -7,6 +7,9 @@ public class repManagement {
         System.out.println();
         System.out.println();
         System.out.println();
+        System.out.printf("Songs in your repertoire:");
+        Arrays.getSongList();
+
         System.out.println();
         System.out.println();
         System.out.println("Press 1 for adding songs.");
@@ -35,13 +38,16 @@ public class repManagement {
 
         System.out.println("You may add up to 3 more songs per Fame lvl.");
         if (Arrays.songs.size() < playerBandClass.band.maxSongs) {
-            System.out.println("You can add " + (Arrays.songs.size() - playerBandClass.band.maxSongs) + " more songs!");
+            System.out.println("You can add " + (playerBandClass.band.maxSongs-Arrays.songs.size()) + " more songs!");
             System.out.println("Please choose a song title!");
             Scanner scanner = new Scanner(System.in);
             String song = scanner.nextLine();
-            Arrays.songs.add(song);
+            Arrays.songs.add(song); //Tilføjer sang navn til sang arrayet
             int last = Arrays.songs.indexOf(song);
             Arrays.setSongScore(last);
+            Arrays.newStreams(last);
+            menu();
+            //Tilføjer sang score til netop oprettet sang.
         } else {
             System.out.println();
             System.out.println();
@@ -64,14 +70,14 @@ public class repManagement {
         if (Arrays.songs.size() >= 1) {
             System.out.println();
             System.out.println("You can choose between the following songs:");
-            Arrays.songList();
+            Arrays.getSongList();
             System.out.println("Write the number of the song you wish to remove.");
             Scanner scanner = new Scanner(System.in);
             int index = scanner.nextInt();
-            Arrays.songs.remove(index);
-            Arrays.songStreams.remove(index);
-            Arrays.delSongScore(index);
-            Arrays.songs.sort(null);
+            Arrays.songs.remove(index); //Fjerner songs var arrayet
+            Arrays.songStreams.remove(index); //Fjerne song streams fra arrayet
+            Arrays.songScores.remove(index); // fjerne song score fra arrayet. Dette virker fordi hver sang, sang streams, og sang score for hver sang har samme index.
+
             System.out.println("The song has been deleted. Press 1 to return to rep menu");
             Scanner scanner1 = new Scanner(System.in);
             int scan = scanner1.nextInt();
@@ -97,47 +103,50 @@ public class repManagement {
         System.out.println();
         System.out.println();
         System.out.println();
+        if (Arrays.songs.size() < playerBandClass.band.maxSongs) {
+            System.out.println("You can rent out high quality equipment to record your new single.");
+            cost = playerBandClass.band.getFameLvl() ^ 2 * 99;
+            System.out.println("The cost will be " + cost + " $. and you will gain XP");
+            System.out.println("To release a new single write 1. To go back to the main menu write 2.");
+            Scanner scanner = new Scanner(System.in);
+            int index = scanner.nextInt();
+            if (index == 1) {
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                System.out.println();
 
-        System.out.println("You can rent out high quality equipment to record your new single.");
-        cost = playerBandClass.band.getFameLvl() ^ 2 * 99;
-        System.out.println("The cost will be " + cost + " $. and you will gain XP");
-        System.out.println("To release a new single write 1. To go back to the main menu write 2.");
-        Scanner scanner = new Scanner(System.in);
-        int index = scanner.nextInt();
-        if (index == 1) {
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
+                System.out.println("What would you like to name your new single?");
+                Scanner scanner1 = new Scanner(System.in);
+                String song = scanner1.nextLine();
+                Arrays.songs.add(song);
+                Arrays.songScores.add(Arrays.songScores.size() + 1,
+                        Arrays.setSongScore(Arrays.songScores.size() + 1));
+                Arrays.newStreams(Arrays.songScores.size() + 1);
 
-            System.out.println("What would you like to name your new single?");
-            Scanner scanner1 = new Scanner(System.in);
-            String song = scanner1.nextLine();
-            Arrays.songs.add(song);
-            Arrays.songScores.add(Arrays.songScores.size() + 1,
-                    Arrays.setSongScore(Arrays.songScores.size() + 1));
-            Arrays.newStreams(Arrays.songScores.size() + 1);
+                expGain = Arrays.songScores.getLast() * playerBandClass.band.getExp();
+                playerBandClass.band.setExp(expGain);
+                fanGain = Arrays.songScores.getLast() * playerBandClass.band.getFans() / 7;
+                playerBandClass.band.addFans(fanGain);
+                System.out.println();
+                System.out.println();
+                System.out.println("Your new single " + Arrays.songs.getLast() + " got you " + fanGain + " new fans and " + expGain + " XP.");
+                Scanner scanner2 = new Scanner(System.in);
+                int scan = scanner2.nextInt();
+                System.out.println("Write 1 to go back to rep menu.");
+                if (scan == 1) {
+                    menu();
+                } else {
+                    menu();
+                }
 
-            expGain = Arrays.songScores.getLast() * playerBandClass.band.getExp();
-            playerBandClass.band.setExp(expGain);
-            fanGain = Arrays.songScores.getLast() * playerBandClass.band.getFans() / 7;
-            playerBandClass.band.addFans(fanGain);
-            System.out.println();
-            System.out.println();
-            System.out.println("Your new single " + Arrays.songs.getLast() + " got you " + fanGain + " new fans and " + expGain + " XP.");
-            Scanner scanner2 = new Scanner(System.in);
-            int scan = scanner2.nextInt();
-            System.out.println("Write 1 to go back to rep menu.");
-            if (scan == 1) {
-                menu();
             } else {
-                menu();
+                mainMenu.printMenu();
             }
-
         } else {
-            mainMenu.printMenu();
+            menu();
+            System.out.println("You need to lvl up or delete a song before releasing a single.");
         }
-
     }
 
 }

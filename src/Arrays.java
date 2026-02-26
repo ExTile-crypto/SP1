@@ -7,16 +7,10 @@ public class Arrays {
     static ArrayList<String> songs = new ArrayList<>();
 
 
-    // public class printCom {
-
-    // int index;
-    // printCom(int index){
-    // this.index=index;
-
-    //}
-//}
     static ArrayList<Integer> songScores = new ArrayList<Integer>(); // Sang score for at kunne afgøre hvor mange streams sang får pr gig.
     static ArrayList<Integer> songStreams = new ArrayList<Integer>();
+
+
 
     static String fameLvlComm(int index) {
         index = playerBandClass.band.getFameLvl();
@@ -43,7 +37,8 @@ public class Arrays {
         return "";
     }
 
-    static void songsAddIntro() {
+    static void songsAddIntro() { // Lader spilleren vælge navne på sine første tre sange.
+                                    // Sangene starter med at få en score og antal streams beregnet udfra navnet.
 
 
         System.out.println("Choose the titles of your first 3 songs!");
@@ -112,11 +107,11 @@ public class Arrays {
         Arrays.songStreams.set(index, streams + (songStreams.get(index)));
     }
 
-    public static void songList() {
+    public static void getSongList() {
         System.out.println("There is " + Arrays.songs.size() + " songs in the repertoire");
 
         for (int i = 0; i < Arrays.songs.size(); i++) {
-            System.out.println(i + ": " + Arrays.songs.get(i) + " Score: " + Arrays.getSongScore(i));
+            System.out.println(i + ": " + Arrays.songs.get(i) + " Score: " + Arrays.getSongScore(i)+" With "+getStreams(i)+" Streams");
         }
     }
 }

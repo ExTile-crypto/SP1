@@ -61,7 +61,7 @@ public class bandBattle {
 
             if (rivalAtt / venueCap * 100 >= 50) {
                 int randomNum = (int) (Math.random() * 50);
-                int rivalFanGain = 300 + randomNum;
+                int rivalFanGain = 300 + randomNum; // Ikke implementeret progression for CPU band.
             } else {
                 int randomNum = (int) (Math.random() * 50);
                 int rivalFanGain = 100 + randomNum;

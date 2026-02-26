@@ -27,7 +27,7 @@ public class playerBandClass {
             band.genre = genre;
             fameLvl = 1;
             maxSongs = fameLvl * 3;
-
+            items = new ArrayList<>();
         }
 
         static String setName(String name) {
@@ -49,19 +49,23 @@ public class playerBandClass {
             String scanGenre = scanner1.nextLine();
 
             if (scanGenre.contentEquals("PU")) {
+                genreNumber = 0 ;
                 return scanGenre;
             } else if (scanGenre.contentEquals("HH")) {
+                genreNumber = 1;
                 return scanGenre;
             } else if (scanGenre.contentEquals("PR")) {
+                genreNumber = 2;
                 return scanGenre;
             } else {
-                setGenre(band.genre);
+                setGenre(genre);
             }
             return "";
 
         }
 
         static void setgenreNumber() { //genre nummer for at tilknytte genre kommentar.
+
             if (genre.contentEquals("PU")) {
                 genreNumber = 0;
             } else if (genre.contentEquals("HH")) {
@@ -139,13 +143,14 @@ public class playerBandClass {
                 System.out.println(fameLvl);
                 maxFans=fameLvl*1000;
                 maxSongs=fameLvl*3;
+
             }
 
         }
 
         //
         public static void checkFans() { // check relevance + isActive
-            if (25 > (fans / maxFans) * 100) {
+            if (25 < (fans / maxFans) * 100) {
                 System.out.println("Losing relevance!");
                 if (fans <= 0) {
                     isActive = false;
@@ -154,8 +159,19 @@ public class playerBandClass {
                 }
             }
         }
+        public static void printItemInv(){
+            if (items.isEmpty()) {
+                System.out.println("No items in inventory");
+            } else {
+                System.out.println("Items in inventory: ");
+                for (int i = 0; i < items.size(); i++) {
+                    System.out.println(items.get(i));
+                }
+            }
 
-        public static void createBand() {
+        }
+
+        public static void createBand() { //
             band one = new band(playerBandClass.band.setName(band.name), true,
                     playerBandClass.band.setGenre(band.genre));
             playerBandClass.band.setgenreNumber();

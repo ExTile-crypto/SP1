@@ -1,7 +1,8 @@
 public class CPUbandClass {
-     static {
-         new CPUband1();
-     }
+    static {
+        new CPUband1();
+     } //Oprettet CPU bands som spilleren kan battle i mod. Jeg ville gerne have implementeret at CPU bandsne også blev lidt bedre over tid,
+    //og måske at deres values var lidt randomiseret til start, i stedet for altid at starte med de samme parametre.
     static void print1CPUband() {
         System.out.println("---" + CPUband1.name + " (" + CPUband1.genre + ")" + "---");
         System.out.println("Fame lvl: " + CPUband1.fameLvl + " | Fans: " + CPUband1.fans + "/" + CPUband1.maxFans);
