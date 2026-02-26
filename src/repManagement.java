@@ -7,7 +7,7 @@ public class repManagement {
         System.out.println();
         System.out.println();
         System.out.println();
-        System.out.printf("Songs in your repertoire:");
+        System.out.println("Songs in your repertoire:");
         Arrays.getSongList();
 
         System.out.println();
@@ -15,6 +15,7 @@ public class repManagement {
         System.out.println("Press 1 for adding songs.");
         System.out.println("Press 2 for removing songs");
         System.out.println("Press 3 to release a hit single (Costs $");
+        System.out.println("Press 4 for main menu");
         Scanner scanner = new Scanner(System.in);
         int scan = scanner.nextInt();
         if (scan == 1) {
@@ -25,7 +26,10 @@ public class repManagement {
             releaseSingle();
         } else if (scan == 4) {
             mainMenu.printMenu();
+        } else {
+            mainMenu.printMenu();
         }
+
     }
 
 
@@ -119,10 +123,12 @@ public class repManagement {
                 System.out.println("What would you like to name your new single?");
                 Scanner scanner1 = new Scanner(System.in);
                 String song = scanner1.nextLine();
+
                 Arrays.songs.add(song);
-                Arrays.songScores.add(Arrays.songScores.size() + 1,
-                        Arrays.setSongScore(Arrays.songScores.size() + 1));
-                Arrays.newStreams(Arrays.songScores.size() + 1);
+                int last = Arrays.songs.indexOf(song);
+                Arrays.setSongScore(last);
+                Arrays.newStreams(last);
+
 
                 expGain = Arrays.songScores.getLast() * playerBandClass.band.getExp();
                 playerBandClass.band.setExp(expGain);
@@ -131,9 +137,9 @@ public class repManagement {
                 System.out.println();
                 System.out.println();
                 System.out.println("Your new single " + Arrays.songs.getLast() + " got you " + fanGain + " new fans and " + expGain + " XP.");
+                System.out.println("Write 1 to go back to rep menu.");
                 Scanner scanner2 = new Scanner(System.in);
                 int scan = scanner2.nextInt();
-                System.out.println("Write 1 to go back to rep menu.");
                 if (scan == 1) {
                     menu();
                 } else {
